@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "lectureId")
-@ToString(of = {"lectureId", "thematicPathNumber", "dateTime"})
+@ToString(of = {"lectureId", "pathNumber", "lectureNumber", "topic", "dateTime"})
 @Table(name = "lecture")
 public class LectureEntity {
 
@@ -22,8 +22,14 @@ public class LectureEntity {
     @Column(name = "lecture_id")
     private Integer lectureId;
 
-    @Column(name = "thematic_path_number")
-    private Integer thematicPathNumber;
+    @Column(name = "topic")
+    private String topic;
+
+    @Column(name = "path_number")
+    private Integer pathNumber;
+
+    @Column(name = "lecture_number")
+    private Integer lectureNumber;
 
     @Column(name = "date_time")
     private OffsetDateTime dateTime;

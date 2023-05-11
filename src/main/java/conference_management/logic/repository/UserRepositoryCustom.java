@@ -1,17 +1,12 @@
-package conference_management.logic.service;
+package conference_management.logic.repository;
 
 import conference_management.logic.model.LectureEntity;
-import conference_management.logic.model.UserEntity;
 
 import java.util.List;
 
-public interface UserService {
-
-    UserEntity createUser(String login, String email);
+public interface UserRepositoryCustom {
 
     void updateUser(String email, String newEmail);
-
-    List<UserEntity> getAllUsers();
 
     void registerForLecture(String login, String email, Integer pathNumber, Integer lectureNumber);
 

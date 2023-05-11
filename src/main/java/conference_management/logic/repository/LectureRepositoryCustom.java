@@ -1,11 +1,11 @@
-package conference_management.logic.service;
+package conference_management.logic.repository;
 
 import conference_management.logic.model.LectureEntity;
 
 import java.util.List;
 import java.util.Map;
 
-public interface LectureService {
+public interface LectureRepositoryCustom {
 
     List<LectureEntity> getConferenceAgenda();
 

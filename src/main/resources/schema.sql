@@ -12,7 +12,9 @@ CREATE TABLE user_data
 CREATE TABLE lecture
 (
     lecture_id SERIAL                   NOT NULL,
-    thematic_path_number INT            NOT NULL,
+    topic VARCHAR(32)                   NOT NULL,
+    path_number INT            NOT NULL,
+    lecture_number INT                  NOT NULL,
     date_time TIMESTAMP WITH TIME ZONE  NOT NULL,
     capacity INT                        NOT NULL,
     PRIMARY KEY (lecture_id)

@@ -1,0 +1,14 @@
+conference_management\logic\model\UserEntity$UserEntityBuilder.class
+conference_management\logic\model\UserEntity.class
+conference_management\logic\repository\UserRepositoryImpl.class
+conference_management\logic\service\UserService.class
+conference_management\app\ConferenceManagementApplication.class
+conference_management\logic\service\UserServiceImpl.class
+conference_management\logic\model\LectureEntity.class
+conference_management\logic\repository\UserRepository.class
+conference_management\logic\service\LectureServiceImpl.class
+conference_management\logic\controller\LectureController.class
+conference_management\logic\repository\LectureRepository.class
+conference_management\logic\service\LectureService.class
+conference_management\logic\controller\UserController.class
+conference_management\logic\model\LectureEntity$LectureEntityBuilder.class
