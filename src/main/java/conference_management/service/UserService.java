@@ -4,6 +4,7 @@ import conference_management.model.LectureEntity;
 import conference_management.model.UserEntity;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
 
@@ -17,5 +18,5 @@ public interface UserService {
 
     void cancelReservation(String login, Integer pathNumber, Integer lectureNumber);
 
-    List<LectureEntity> getLectures(String login);
+    Set<LectureEntity> getLectures(String login);
 }

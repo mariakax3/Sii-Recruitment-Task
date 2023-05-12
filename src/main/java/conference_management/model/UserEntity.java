@@ -1,5 +1,6 @@
 package conference_management.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,5 +34,6 @@ public class UserEntity {
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "lecture_id")}
     )
+    @JsonIgnoreProperties("users")
     private Set<LectureEntity> lectures;
 }

@@ -1,5 +1,6 @@
 package conference_management.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,5 +39,6 @@ public class LectureEntity {
     private Integer capacity;
 
     @ManyToMany(mappedBy = "lectures")
+    @JsonIgnoreProperties("lectures")
     private Set<UserEntity> users;
 }

@@ -7,6 +7,4 @@ import java.util.Map;
 public interface LectureRepositoryCustom {
 
     Map<LectureEntity, Float> getLectureInterest();
-
-    Map<Integer, Float> getPathInterest();
 }
