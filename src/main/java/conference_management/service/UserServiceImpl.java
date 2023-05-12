@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -41,7 +42,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<LectureEntity> getLectures(String login) {
-        return userRepository.getLectures(login);
+    public Set<LectureEntity> getLectures(String login) {
+        UserEntity user = userRepository.findByLogin(login);
+        return user.getLectures();
     }
 }

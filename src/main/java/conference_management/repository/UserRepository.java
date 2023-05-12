@@ -13,4 +13,5 @@ public interface UserRepository extends CrudRepository<UserEntity, Integer>, Use
     @Query("update UserEntity u set u.email = :newEmail where u.email = :email")
     void updateUser(String email, String newEmail);
 
+    UserEntity findByLogin(String login);
 }

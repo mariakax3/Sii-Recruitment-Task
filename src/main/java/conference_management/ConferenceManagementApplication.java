@@ -3,7 +3,7 @@ package conference_management;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = "pl.sii.conference_management.*")
+@SpringBootApplication()
 public class ConferenceManagementApplication {
 
     public static void main(String[] args) {

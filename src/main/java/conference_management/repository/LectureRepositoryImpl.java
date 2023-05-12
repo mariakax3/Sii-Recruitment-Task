@@ -13,8 +13,4 @@ public class LectureRepositoryImpl implements LectureRepositoryCustom {
         return null;
     }
 
-    @Override
-    public Map<Integer, Float> getPathInterest() {
-        return null;
-    }
 }
