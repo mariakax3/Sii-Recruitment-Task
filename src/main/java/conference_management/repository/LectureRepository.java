@@ -10,4 +10,6 @@ import java.util.List;
 public interface LectureRepository extends CrudRepository<LectureEntity, Integer>, LectureRepositoryCustom {
 
     List<LectureEntity> findByPathNumber(Integer pathNumber);
+
+    List<LectureEntity> findByPathNumberAndLectureNumber(Integer pathNumber, Integer lectureNumber);
 }

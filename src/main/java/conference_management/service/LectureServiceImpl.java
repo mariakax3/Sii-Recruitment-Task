@@ -2,12 +2,16 @@ package conference_management.service;
 
 import conference_management.model.LectureEntity;
 import conference_management.repository.LectureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.StreamSupport;
 
+@Slf4j
 @Service
 public class LectureServiceImpl implements LectureService {
 
@@ -24,5 +28,16 @@ public class LectureServiceImpl implements LectureService {
         return lectureRepository.findByPathNumber(path).stream()
                 .mapToInt(lecture -> lecture.getUsers().size())
                 .sum();
+    }
+
+    @Override
+    public LectureEntity findByPathAndLecture(Integer pathNumber, Integer lectureNumber) {
+        List<LectureEntity> lecture = lectureRepository.findByPathNumberAndLectureNumber(pathNumber, lectureNumber);
+        log.info("### LECTURES BY PATH {} AND LECTURE {}: {}", pathNumber, lectureNumber, lecture);
+
+        if (lecture.size() == 0) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid path number or lecture number provided.");
+        }
+        return lecture.get(0);
     }
 }

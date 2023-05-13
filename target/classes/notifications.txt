@@ -1,0 +1,2 @@
+to: adamhackerman@email.com; timestamp: 2023-05-13T19:25:44Z; content: You are successfully enrolled for lecture AI Risks, date and time 2023-06-01T12:00:00Z
+to: adamhackerman@email.com; timestamp: 2023-05-13, 19:27:05Z; content: You are successfully enrolled for lecture AI Risks, date and time: 2023-06-01, 12:00:00Z

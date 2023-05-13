@@ -13,7 +13,7 @@ CREATE TABLE lecture
 (
     lecture_id SERIAL                   NOT NULL,
     topic VARCHAR(64)                   NOT NULL,
-    path_number INT            NOT NULL,
+    path_number INT                     NOT NULL,
     lecture_number INT                  NOT NULL,
     date_time TIMESTAMP WITH TIME ZONE  NOT NULL,
     capacity INT                        NOT NULL,
