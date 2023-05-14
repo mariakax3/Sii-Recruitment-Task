@@ -85,6 +85,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void cancelReservation(String email, LectureEntity lecture) {
         List<UserEntity> users = userRepository.findByEmail(email);
         log.info("### USERS BY EMAIL {}: {}", email, users);

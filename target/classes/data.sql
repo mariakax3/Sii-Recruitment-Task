@@ -13,8 +13,15 @@ INSERT INTO user_data (login, email) VALUES
 ('adam123', 'adamhackerman@email.com'),
 ('agnieszka_programistka', 'agnieszka.programistka@email.com'),
 ('98kamil', 'kamil_98@email.com'),
+('patrycja653', 'patrycja653@email.com'),
+('ada_sklada', 'ada997@email.com'),
 ('aneta_325', 'aneta@email.com');
 
 INSERT INTO lecture_reservation (user_id, lecture_id) VALUES
 (1, 1),
-(3, 5);
+(3, 5),
+(1, 8),
+(2, 8),
+(3, 8),
+(4, 8),
+(5, 8);
