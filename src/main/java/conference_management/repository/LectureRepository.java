@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LectureRepository extends CrudRepository<LectureEntity, Integer>, LectureRepositoryCustom {
+public interface LectureRepository extends CrudRepository<LectureEntity, Integer> {
 
     List<LectureEntity> findByPathNumber(Integer pathNumber);
 

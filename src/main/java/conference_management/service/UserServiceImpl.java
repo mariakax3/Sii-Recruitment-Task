@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.io.*;
-import java.nio.charset.Charset;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -84,8 +85,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void cancelReservation(String login, Integer pathNumber, Integer lectureNumber) {
-        userRepository.cancelReservation(login, pathNumber, lectureNumber);
+    public void cancelReservation(String email, LectureEntity lecture) {
+        List<UserEntity> users = userRepository.findByEmail(email);
+        log.info("### USERS BY EMAIL {}: {}", email, users);
+
+        UserEntity user = users.get(0);
+        user.getLectures().remove(lecture);
+        userRepository.save(user);
     }
 
     @Override

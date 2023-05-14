@@ -15,7 +15,7 @@ public interface UserService {
 
     Map<UserEntity, LectureEntity> registerForLecture(String login, String email, LectureEntity lecture);
 
-    void cancelReservation(String login, Integer pathNumber, Integer lectureNumber);
+    void cancelReservation(String email, LectureEntity lecture);
 
     Set<LectureEntity> getLectures(String login);
 }

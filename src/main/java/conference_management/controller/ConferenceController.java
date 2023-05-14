@@ -156,6 +156,23 @@ public class ConferenceController {
         }
     }
 
+    @DeleteMapping("/lectures/cancel/{email}")
+    public ResponseEntity cancelReservation(@PathVariable(value = "email") String email, Integer pathNumber, Integer lectureNumber) {
+        try {
+            LectureEntity lecture = lectureService.findByPathAndLecture(pathNumber, lectureNumber);
+
+            userService.cancelReservation(email, lecture);
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body("Lecture %s successfully cancelled.".formatted(lecture.getTopic()));
+        } catch (ResponseStatusException e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getReason());
+        }
+    }
+
     private List<UserEntity> getRegisteredUsersList() {
         return userService.getAllUsers().stream()
                 .filter(user -> user.getLectures().size() > 0)
