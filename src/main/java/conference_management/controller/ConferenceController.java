@@ -4,6 +4,9 @@ import conference_management.model.LectureEntity;
 import conference_management.model.UserEntity;
 import conference_management.service.LectureService;
 import conference_management.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
+//@ApiResponses(value = {
+//        @ApiResponse(responseCode = "200", description = "successfully updated"),
+//        @ApiResponse(responseCode = "400", description = "Bad request"),
+//        @ApiResponse(responseCode = "500", description = "Internal Server Error")})
 public class ConferenceController {
 
     @Autowired
@@ -28,6 +35,7 @@ public class ConferenceController {
     private LectureService lectureService;
 
     @GetMapping("/lectures")
+    @Operation(summary = "Conference agenda")
     public ResponseEntity<List<LectureEntity>> getConferenceAgenda() {
         try {
             List<LectureEntity> lectures = lectureService.getConferenceAgenda();
@@ -43,6 +51,7 @@ public class ConferenceController {
     }
 
     @GetMapping("/registered_users")
+    @Operation(summary = "Registered users")
     public ResponseEntity<List<UserEntity>> getRegisteredUsers() {
         try {
             List<UserEntity> registeredUsers = getRegisteredUsersList();
@@ -58,6 +67,7 @@ public class ConferenceController {
     }
 
     @GetMapping("/users")
+    @Operation(summary = "All users in system")
     public ResponseEntity<List<UserEntity>> getAllUsers() {
         try {
             List<UserEntity> users = userService.getAllUsers();
@@ -73,6 +83,7 @@ public class ConferenceController {
     }
 
     @GetMapping("/lectures/{login}")
+    @Operation(summary = "Conference agenda for particular user")
     public ResponseEntity<Set<LectureEntity>> getMyLectures(@PathVariable(value = "login") String login) {
         try {
             Set<LectureEntity> lectures = userService.getLectures(login);
@@ -88,6 +99,7 @@ public class ConferenceController {
     }
 
     @GetMapping("/paths/interest")
+    @Operation(summary = "Percentage of interest in the lecture")
     public ResponseEntity<Map<Integer, Float>> getPathInterest() {
         try {
             int registeredUsers = getRegisteredUsersList().size();
@@ -104,6 +116,7 @@ public class ConferenceController {
     }
 
     @GetMapping("/lectures/interest")
+    @Operation(summary = "Percentage of interest in the themed paths")
     public ResponseEntity<Map<LectureEntity, Float>> getLectureInterest() {
         try {
             int registeredUsers = getRegisteredUsersList().size();
@@ -121,6 +134,7 @@ public class ConferenceController {
     }
 
     @PostMapping("/users/{email}")
+    @Operation(summary = "Update email for particular user")
     public ResponseEntity<UserEntity> updateUser(@PathVariable("email") String email, String newEmail) {
         try {
             UserEntity updated = userService.updateUser(email, newEmail);
@@ -132,6 +146,7 @@ public class ConferenceController {
     }
 
     @PutMapping("/register/user")
+    @Operation(summary = "Register particular user for selected lecture")
     public ResponseEntity registerForLecture(
             String login, String email, Integer pathNumber, Integer lectureNumber
     ) {
@@ -157,6 +172,7 @@ public class ConferenceController {
     }
 
     @DeleteMapping("/lectures/cancel/{email}")
+    @Operation(summary = "Cancel particular user's registration for a selected lecture")
     public ResponseEntity cancelReservation(@PathVariable(value = "email") String email, Integer pathNumber, Integer lectureNumber) {
         try {
             LectureEntity lecture = lectureService.findByPathAndLecture(pathNumber, lectureNumber);
