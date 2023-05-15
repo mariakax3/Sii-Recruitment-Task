@@ -13,9 +13,11 @@
         <springboot.version>3.0.6</springboot.version>
         <h2.version>2.1.214</h2.version>
         <hibernate.version>6.1.7.Final</hibernate.version>
+        <hibernatevalidator.version>8.0.0.Final</hibernatevalidator.version>
         <lombok.version>1.18.26</lombok.version>
         <slf4j.version>2.0.0-alpha0</slf4j.version>
         <logback.version>1.4.7</logback.version>
+        <springdoc.version>2.1.0</springdoc.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     </properties>
 
@@ -46,6 +48,11 @@
             <version>${hibernate.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernatevalidator.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
@@ -70,6 +77,11 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -93,10 +105,16 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <arguments>
-                        <argument>--spring.profiles.active=dev</argument>
-                    </arguments>
+                    <mainClass>conference_management.ConferenceManagementApplication</mainClass>
+                    <layout>JAR</layout>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
