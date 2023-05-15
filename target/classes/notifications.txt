@@ -5,3 +5,5 @@ to: adamhackerman@email.com; timestamp: 2023-05-15, 15:13:13; content: You are s
 to: patrycja653@email.com; timestamp: 2023-05-15, 15:24:54; content: You are successfully enrolled for lecture Data design and curation in era of cloud computing, date and time: 2023-06-01, 14:00:00
 to: patrycja653@email.com; timestamp: 2023-05-15, 15:46:41; content: You are successfully enrolled for lecture Data design and curation in era of cloud computing, date and time: 2023-06-01, 14:00:00
 to: aniedam@email.com; timestamp: 2023-05-15, 15:52:05; content: You are successfully enrolled for lecture Data design and curation in era of cloud computing, date and time: 2023-06-01, 14:00:00
+to: adaaaaa; timestamp: 2023-05-15, 15:55:48; content: You are successfully enrolled for lecture Distributed build at scale, date and time: 2023-06-01, 10:00:00
+to: patrycja653@email.com; timestamp: 2023-05-15, 20:32:52; content: You are successfully enrolled for lecture Rhe future of Artificial Intelligence, date and time: 2023-06-01, 10:00:00

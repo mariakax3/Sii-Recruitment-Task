@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         log.info("### USERS BY EMAIL {}: {}", email, users);
 
         if (users.size() == 0) {
-            throw new RuntimeException("Invalid email provided.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid email provided.");
         }
         UserEntity user = users.get(0);
         user.setEmail(newEmail);
@@ -98,7 +98,15 @@ public class UserServiceImpl implements UserService {
         List<UserEntity> users = userRepository.findByEmail(email);
         log.info("### USERS BY EMAIL {}: {}", email, users);
 
+        if (users.size() == 0) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid e-mail provided.");
+        }
+
         UserEntity user = users.get(0);
+        if (!user.getLectures().contains(lecture)) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid path number or lecture number provided.");
+        }
+
         user.getLectures().remove(lecture);
         userRepository.save(user);
     }

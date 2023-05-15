@@ -5,8 +5,6 @@ import conference_management.model.UserEntity;
 import conference_management.service.LectureService;
 import conference_management.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -112,7 +110,7 @@ public class ConferenceController {
     }
 
     @GetMapping("/lectures/interest")
-    @Operation(summary = "Percentage of interest in the themed paths")
+    @Operation(summary = "Percentage of interest in the thematic paths")
     public ResponseEntity<Map<LectureEntity, Float>> getLectureInterest() {
         try {
             int registeredUsers = getRegisteredUsersList().size();
@@ -131,13 +129,17 @@ public class ConferenceController {
 
     @PostMapping("/users/{email}")
     @Operation(summary = "Update email for particular user")
-    public ResponseEntity<UserEntity> updateUser(@PathVariable("email") String email, String newEmail) {
+    public ResponseEntity updateUser(@PathVariable("email") String email, String newEmail) {
         try {
             UserEntity updated = userService.updateUser(email, newEmail);
 
-            return new ResponseEntity<>(updated, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(updated);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getReason());
         }
     }
 
