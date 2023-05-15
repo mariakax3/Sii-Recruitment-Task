@@ -19,6 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,8 +64,10 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Provided login is already in use.");
         }
 
+        UserEntity user;
+
         if (usersByLoginAndEmail.size() == 1) {
-            UserEntity user = usersByLoginAndEmail.get(0);
+            user = usersByLoginAndEmail.get(0);
 
             List<LectureEntity> collidingLectures = user.getLectures().stream()
                     .filter(entity -> entity.getDateTime().equals(lecture.getDateTime()))
@@ -72,16 +75,21 @@ public class UserServiceImpl implements UserService {
 
             if (collidingLectures.size() != 0) {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "You are already enrolled for colliding lecture: " + lecture);
-            } else {
-                user.getLectures().add(lecture);
-                userRepository.save(user);
-
-                sendNotification(user, lecture);
-
-                return Map.of(user, lecture);
             }
+
+        } else {
+            user = UserEntity.builder()
+                    .login(login)
+                    .email(email)
+                    .lectures(new HashSet<>())
+                    .build();
+            userRepository.save(user);
         }
-        return null;
+        user.getLectures().add(lecture);
+        userRepository.save(user);
+        log.info("### USER {} SAVED", user);
+        sendNotification(user, lecture);
+        return Map.of(user, lecture);
     }
 
     @Override

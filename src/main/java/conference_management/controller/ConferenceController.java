@@ -22,10 +22,6 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-//@ApiResponses(value = {
-//        @ApiResponse(responseCode = "200", description = "successfully updated"),
-//        @ApiResponse(responseCode = "400", description = "Bad request"),
-//        @ApiResponse(responseCode = "500", description = "Internal Server Error")})
 public class ConferenceController {
 
     @Autowired
@@ -67,7 +63,7 @@ public class ConferenceController {
     }
 
     @GetMapping("/users")
-    @Operation(summary = "All users in system")
+    @Operation(summary = "All users in the system")
     public ResponseEntity<List<UserEntity>> getAllUsers() {
         try {
             List<UserEntity> users = userService.getAllUsers();
@@ -99,7 +95,7 @@ public class ConferenceController {
     }
 
     @GetMapping("/paths/interest")
-    @Operation(summary = "Percentage of interest in the lecture")
+    @Operation(summary = "Percentage of interest in the lectures")
     public ResponseEntity<Map<Integer, Float>> getPathInterest() {
         try {
             int registeredUsers = getRegisteredUsersList().size();
@@ -155,7 +151,7 @@ public class ConferenceController {
             LectureEntity lecture = lectureService.findByPathAndLecture(pathNumber, lectureNumber);
 
             if (lecture.getUsers().size() >= lecture.getCapacity()) {
-                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No seats available for selected lecture");
+                throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "No seats available for selected lecture.");
             }
 
             Map<UserEntity, LectureEntity> registration = userService.registerForLecture(login, email, lecture);
