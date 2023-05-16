@@ -32,7 +32,7 @@ The database also contains a junction table representing many-to-many relationsh
 
 ### Sample queries
 GET queries are easily reachable from Swagger.
-Below are the URLs for POST, PUT and DELETE requests. These requests can be made by Swagger after providing the necessary parameters in the Swagger UI.
+Below are the URLs for POST, PUT and DELETE requests. These requests can be made by Swagger after providing the necessary parameters in the Swagger UI or pasted into Postman.
 * POST - Change e-mail:
   * invalid email provided: [http://localhost:8080/api/users/ada998%40email.com?newEmail=ada_456%40email.com](http://localhost:8080/api/users/ada998%40email.com?newEmail=ada_456%40email.com)
   * successful update: [http://localhost:8080/api/users/ada997%40email.com?newEmail=ada_456%40email.com](http://localhost:8080/api/users/ada997%40email.com?newEmail=ada_456%40email.com)
