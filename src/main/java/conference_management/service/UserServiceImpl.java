@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserEntity updateUser(String email, String newEmail) {
         if (!validateEmail(newEmail)) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid email provided.");
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid new email provided.");
         }
 
         Optional<UserEntity> userByEmail = userRepository.findByEmail(email);

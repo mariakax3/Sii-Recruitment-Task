@@ -5,6 +5,6 @@ to: adamhackerman@email.com; timestamp: 2023-05-15, 15:13:13; content: You are s
 to: patrycja653@email.com; timestamp: 2023-05-15, 15:24:54; content: You are successfully enrolled for lecture Data design and curation in era of cloud computing, date and time: 2023-06-01, 14:00:00
 to: patrycja653@email.com; timestamp: 2023-05-15, 15:46:41; content: You are successfully enrolled for lecture Data design and curation in era of cloud computing, date and time: 2023-06-01, 14:00:00
 to: aniedam@email.com; timestamp: 2023-05-15, 15:52:05; content: You are successfully enrolled for lecture Data design and curation in era of cloud computing, date and time: 2023-06-01, 14:00:00
-to: patrycja653@email.com; timestamp: 2023-05-15, 20:32:52; content: You are successfully enrolled for lecture Rhe future of Artificial Intelligence, date and time: 2023-06-01, 10:00:00
 to: sdfsdf@email.com; timestamp: 2023-05-16, 15:35:57; content: You are successfully enrolled for lecture Role of technology in remote workspace, date and time: 2023-06-01, 14:00:00
 to: adamhackerman@email.com; timestamp: 2023-05-16, 17:22:13; content: You are successfully enrolled for lecture Semiconductors - Why so important?, date and time: 2023-06-01, 12:00:00
+to: ania123@email.com; timestamp: 2023-05-16, 21:50:47; content: You are successfully enrolled for lecture The future of Artificial Intelligence, date and time: 2023-06-01, 10:00:00
