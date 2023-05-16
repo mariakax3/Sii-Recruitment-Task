@@ -4,14 +4,14 @@ import conference_management.model.UserEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends CrudRepository<UserEntity, Integer> {
 
-    List<UserEntity> findByEmail(String email);
+    Optional<UserEntity> findByEmail(String email);
 
-    List<UserEntity> findByLogin(String login);
+    Optional<UserEntity> findByLogin(String login);
 
-    List<UserEntity> findByLoginAndEmail(String login, String email);
+    Optional<UserEntity> findByLoginAndEmail(String login, String email);
 }

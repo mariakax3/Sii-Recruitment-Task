@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 @Slf4j
@@ -32,12 +33,12 @@ public class LectureServiceImpl implements LectureService {
 
     @Override
     public LectureEntity findByPathAndLecture(Integer pathNumber, Integer lectureNumber) {
-        List<LectureEntity> lecture = lectureRepository.findByPathNumberAndLectureNumber(pathNumber, lectureNumber);
+        Optional<LectureEntity> lecture = lectureRepository.findByPathNumberAndLectureNumber(pathNumber, lectureNumber);
         log.info("### LECTURES BY PATH {} AND LECTURE {}: {}", pathNumber, lectureNumber, lecture);
 
-        if (lecture.size() == 0) {
+        if (lecture.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid path number or lecture number provided.");
         }
-        return lecture.get(0);
+        return lecture.get();
     }
 }

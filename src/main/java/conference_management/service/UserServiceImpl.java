@@ -19,10 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.StreamSupport;
@@ -37,20 +34,24 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserEntity updateUser(String email, String newEmail) {
-        List<UserEntity> usersByEmail = userRepository.findByEmail(email);
-        List<UserEntity> usersByNewEmail = userRepository.findByEmail(newEmail);
-        log.info("### USERS BY EMAIL {}: {}", email, usersByEmail);
-        log.info("### USERS BY EMAIL {}: {}", newEmail, usersByNewEmail);
-
-        if (usersByEmail.size() == 0) {
+        if (!validateEmail(newEmail)) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid email provided.");
         }
 
-        if (usersByNewEmail.size() != 0) {
+        Optional<UserEntity> userByEmail = userRepository.findByEmail(email);
+        Optional<UserEntity> userByNewEmail = userRepository.findByEmail(newEmail);
+        log.info("### USER BY EMAIL {}: {}", email, userByEmail);
+        log.info("### USER BY EMAIL {}: {}", newEmail, userByNewEmail);
+
+        if (userByEmail.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid email provided.");
+        }
+
+        if (userByNewEmail.isPresent()) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Email " + newEmail + " is already in use.");
         }
 
-        UserEntity user = usersByEmail.get(0);
+        UserEntity user = userByEmail.get();
         user.setEmail(newEmail);
         return userRepository.save(user);
     }
@@ -67,20 +68,20 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid email provided.");
         }
 
-        List<UserEntity> usersByLogin = userRepository.findByLogin(login);
-        List<UserEntity> usersByLoginAndEmail = userRepository.findByLoginAndEmail(login, email);
+        Optional<UserEntity> userByLogin = userRepository.findByLogin(login);
+        Optional<UserEntity> userByLoginAndEmail = userRepository.findByLoginAndEmail(login, email);
 
-        log.info("### USERS BY LOGIN {}: {}", login, usersByLogin);
-        log.info("### USERS BY LOGIN {} AND EMAIL {}: {}", login, email, usersByLoginAndEmail);
+        log.info("### USER BY LOGIN {}: {}", login, userByLogin);
+        log.info("### USER BY LOGIN {} AND EMAIL {}: {}", login, email, userByLoginAndEmail);
 
-        if (usersByLogin.size() != usersByLoginAndEmail.size()) {
+        if (userByLogin.isPresent() && userByLoginAndEmail.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Provided login is already in use.");
         }
 
         UserEntity user;
 
-        if (usersByLoginAndEmail.size() == 1) {
-            user = usersByLoginAndEmail.get(0);
+        if (userByLoginAndEmail.isPresent()) {
+            user = userByLoginAndEmail.get();
             log.info("### USER {} FOUND", user);
 
             List<LectureEntity> collidingLectures = user.getLectures().stream()
@@ -109,14 +110,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void cancelReservation(String email, LectureEntity lecture) {
-        List<UserEntity> users = userRepository.findByEmail(email);
-        log.info("### USERS BY EMAIL {}: {}", email, users);
+        Optional<UserEntity> userByEmail = userRepository.findByEmail(email);
+        log.info("### USERS BY EMAIL {}: {}", email, userByEmail);
 
-        if (users.size() == 0) {
+        if (userByEmail.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid e-mail provided.");
         }
 
-        UserEntity user = users.get(0);
+        UserEntity user = userByEmail.get();
         if (!user.getLectures().contains(lecture)) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid path number or lecture number provided.");
         }
@@ -127,13 +128,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Set<LectureEntity> getLectures(String login) {
-        List<UserEntity> users = userRepository.findByLogin(login);
-        log.info("### USERS BY LOGIN {}: {}", login, users);
+        Optional<UserEntity> userByLogin = userRepository.findByLogin(login);
+        log.info("### USERS BY LOGIN {}: {}", login, userByLogin);
 
-        if (users.size() == 0) {
-            throw new RuntimeException("Invalid login provided.");
+        if (userByLogin.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid login provided.");
         }
-        return users.get(0).getLectures();
+        return userByLogin.get().getLectures();
     }
 
     private boolean validateEmail(String email) {

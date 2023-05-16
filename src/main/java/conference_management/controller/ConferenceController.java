@@ -78,7 +78,7 @@ public class ConferenceController {
 
     @GetMapping("/lectures/{login}")
     @Operation(summary = "Conference agenda for particular user")
-    public ResponseEntity<Set<LectureEntity>> getMyLectures(@PathVariable(value = "login") String login) {
+    public ResponseEntity getMyLectures(@PathVariable(value = "login") String login) {
         try {
             Set<LectureEntity> lectures = userService.getLectures(login);
 
@@ -86,9 +86,13 @@ public class ConferenceController {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
 
-            return new ResponseEntity<>(lectures, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(lectures);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getReason());
         }
     }
 

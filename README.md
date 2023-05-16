@@ -15,7 +15,7 @@ Project should be built and run using Java 8 or above.
 
 3. Change directory to ```../Sii-Recruitment-Task/target/```
 
-4. Execute in the terminal ```java -jar Sii-Recruitment-Task-1.1.0.jar ```
+4. Execute in the terminal ```java -jar Sii-Recruitment-Task-1.2.0.jar ```
 
 Alternatively run ```mvn spring-boot:run``` from command line or IDE or execute *conference_management.ConferenceManagementApplication.main()* from within IDE.
 
