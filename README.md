@@ -21,7 +21,7 @@ Alternatively run ```mvn spring-boot:run``` from command line or IDE or execute 
 
 Once the service is up and running the documentation of the REST API can be accessed at:
 
-* API documentation WEB UI [http://localhost:8080/api/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+* API documentation WEB UI [http://localhost:8080/api/swagger-ui.html](http://localhost:8080/api/swagger-ui.html)
 
 
 

@@ -23,6 +23,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.StreamSupport;
 
 @Slf4j
@@ -35,13 +37,20 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserEntity updateUser(String email, String newEmail) {
-        List<UserEntity> users = userRepository.findByEmail(email);
-        log.info("### USERS BY EMAIL {}: {}", email, users);
+        List<UserEntity> usersByEmail = userRepository.findByEmail(email);
+        List<UserEntity> usersByNewEmail = userRepository.findByEmail(newEmail);
+        log.info("### USERS BY EMAIL {}: {}", email, usersByEmail);
+        log.info("### USERS BY EMAIL {}: {}", newEmail, usersByNewEmail);
 
-        if (users.size() == 0) {
+        if (usersByEmail.size() == 0) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid email provided.");
         }
-        UserEntity user = users.get(0);
+
+        if (usersByNewEmail.size() != 0) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Email " + newEmail + " is already in use.");
+        }
+
+        UserEntity user = usersByEmail.get(0);
         user.setEmail(newEmail);
         return userRepository.save(user);
     }
@@ -54,6 +63,10 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Map<UserEntity, LectureEntity> registerForLecture(String login, String email, LectureEntity lecture) {
+        if (!validateEmail(email)) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Invalid email provided.");
+        }
+
         List<UserEntity> usersByLogin = userRepository.findByLogin(login);
         List<UserEntity> usersByLoginAndEmail = userRepository.findByLoginAndEmail(login, email);
 
@@ -68,6 +81,7 @@ public class UserServiceImpl implements UserService {
 
         if (usersByLoginAndEmail.size() == 1) {
             user = usersByLoginAndEmail.get(0);
+            log.info("### USER {} FOUND", user);
 
             List<LectureEntity> collidingLectures = user.getLectures().stream()
                     .filter(entity -> entity.getDateTime().equals(lecture.getDateTime()))
@@ -120,6 +134,13 @@ public class UserServiceImpl implements UserService {
             throw new RuntimeException("Invalid login provided.");
         }
         return users.get(0).getLectures();
+    }
+
+    private boolean validateEmail(String email) {
+        Pattern VALID_EMAIL_ADDRESS_REGEX =
+                Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        return matcher.matches();
     }
 
     private void sendNotification(UserEntity user, LectureEntity lecture) {
