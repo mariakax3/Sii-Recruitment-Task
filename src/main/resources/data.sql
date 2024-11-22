@@ -1,13 +1,13 @@
 INSERT INTO lecture (topic, path_number, lecture_number, date_time, capacity) VALUES
-('Distributed build at scale', 1, 1, '2023-06-01 10:00:00.000', 5),
-('Cloud-Based application development', 1, 2, '2023-06-01 12:00:00.000', 5),
-('Data design and curation in era of cloud computing', 1, 3, '2023-06-01 14:00:00.000', 5),
-('The future of Artificial Intelligence', 2, 1, '2023-06-01 10:00:00.000', 5),
-('AI Risks', 2, 2, '2023-06-01 12:00:00.000', 5),
-('Will AI take out jobs?', 2, 3, '2023-06-01 14:00:00.000', 5),
-('Evolution of Digital Identity', 3, 1, '2023-06-01 10:00:00.000', 5),
-('Semiconductors - Why so important?', 3, 2, '2023-06-01 12:00:00.000', 5),
-('Role of technology in remote workspace', 3, 3, '2023-06-01 14:00:00.000', 5);
+('Distributed build at scale', 1, 1, '2025-02-01 10:00:00.000', 5),
+('Cloud-Based application development', 1, 2, '2025-02-01 12:00:00.000', 5),
+('Data design and curation in era of cloud computing', 1, 3, '2025-02-01 14:00:00.000', 5),
+('The future of Artificial Intelligence', 2, 1, '2025-02-01 10:00:00.000', 5),
+('AI Risks', 2, 2, '2025-02-01 12:00:00.000', 5),
+('Will AI take out jobs?', 2, 3, '2025-02-01 14:00:00.000', 5),
+('Evolution of Digital Identity', 3, 1, '2025-02-01 10:00:00.000', 5),
+('Semiconductors - Why so important?', 3, 2, '2025-02-01 12:00:00.000', 5),
+('Role of technology in remote workspace', 3, 3, '2025-02-01 14:00:00.000', 5);
 
 INSERT INTO user_data (login, email) VALUES
 ('adam123', 'adamhackerman@email.com'),

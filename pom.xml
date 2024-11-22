@@ -12,11 +12,11 @@
         <java.version>17</java.version>
         <springboot.version>3.0.6</springboot.version>
         <h2.version>2.1.214</h2.version>
+        <mapstruct.version>1.5.4.Final</mapstruct.version>
         <hibernate.version>6.1.7.Final</hibernate.version>
         <hibernatevalidator.version>8.0.0.Final</hibernatevalidator.version>
         <lombok.version>1.18.26</lombok.version>
         <slf4j.version>2.0.0-alpha0</slf4j.version>
-        <logback.version>1.4.7</logback.version>
         <springdoc.version>2.1.0</springdoc.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
     </properties>
@@ -56,27 +56,17 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
-            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-            <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
@@ -97,6 +87,11 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                             <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

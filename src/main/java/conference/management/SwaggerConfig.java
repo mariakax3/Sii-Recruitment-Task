@@ -1,4 +1,4 @@
-package conference_management;
+package conference.management;
 
 import org.springdoc.core.properties.SpringDocConfigProperties;
 import org.springdoc.core.properties.SwaggerUiConfigParameters;
